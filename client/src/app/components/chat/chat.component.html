@@ -1,0 +1,31 @@
+<h2>All messages in database</h2>
+<ul>
+  <li *ngFor="let message of chatMessages">
+    {{message.name}} : "{{message.message}}"
+  </li>
+</ul>
+
+<h2 class="page-header">Chat</h2>
+<form (submit)="sendMsg()">
+  <div class="form-group">
+    <label>Message</label>
+    <input type="text" [(ngModel)]="message" name="message" class="form-control">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+<h4>Chatrooms</h4>
+<ul>
+  <li *ngFor="let chatroom of chatrooms">
+    {{chatroom.name}}
+  </li>
+</ul>
+<hr>
+
+<form (submit)="createRoom()">
+  <div class="form-group">
+    <label>Create Room</label>
+    <input type="text" [(ngModel)]="room" name="room" class="form-control">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Create Room">
+</form>

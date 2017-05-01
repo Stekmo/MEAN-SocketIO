@@ -1,0 +1,27 @@
+{
+  "name": "meanauthapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cookie-parser": "~1.4.3",
+    "cors": "*",
+    "ejs": "^2.5.6",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "morgan": "~1.7.0",
+    "passport": "*",
+    "passport-jwt": "*",
+    "serve-favicon": "~2.3.0",
+    "socket.io": "*"
+  },
+  "author": "",
+  "license": "ISC"
+}
