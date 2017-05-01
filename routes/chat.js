@@ -8,7 +8,8 @@ const Chatroom = require('../models/chatroom');
 router.post('/send-message', (req, res, next) => {
     let newMsg = new Message({
         name: req.body.name,
-        message: req.body.message
+        message: req.body.message,
+        chatroom: req.body.chatroom
     });
 
     Message.addMessage(newMsg, (err, msg) => {

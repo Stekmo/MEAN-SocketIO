@@ -6,7 +6,6 @@ import { ChatService } from '../../services/chat.service';
 import {Chatroom} from "./chatroom";
 import {Message} from "./message";
 
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -16,6 +15,8 @@ export class ChatComponent implements OnInit {
   name: String;
   message: String;
   room: String;
+  currentRoom: String;
+  private socket;
   public chatMessages = [];
   public chatrooms = [];
 
@@ -28,14 +29,15 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.getMessages();
     this.getChatrooms();
+    this.currentRoom = "Room Room";
   }
 
   sendMsg(){
     const message: Message = {
       name: JSON.parse(localStorage.getItem('user')).name,
-      message: this.message
+      message: this.message,
+      chatroom: this.currentRoom
     };
-
     this.chatService.sendMessage(message).subscribe();
   }
 
@@ -48,6 +50,7 @@ export class ChatComponent implements OnInit {
       );
   }
 
+  // Chatrooms
   createRoom(){
     const newChatroom: Chatroom = {
       name: this.room,
@@ -63,6 +66,10 @@ export class ChatComponent implements OnInit {
           this.chatrooms = chatrooms;
         }
       )
+  }
+
+  changeRoom(chatroom){
+    this.currentRoom = chatroom.name;
   }
 
 }

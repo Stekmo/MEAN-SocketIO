@@ -15,9 +15,9 @@
 </form>
 
 <h4>Chatrooms</h4>
-<ul>
-  <li *ngFor="let chatroom of chatrooms">
-    {{chatroom.name}}
+<ul class="chatrooms">
+  <li *ngFor="let chatroom of chatrooms" (click)="changeRoom(chatroom)">
+    <a href="#/chat">{{chatroom.name}}</a>
   </li>
 </ul>
 <hr>

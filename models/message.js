@@ -8,6 +8,9 @@ const msgSchema = mongoose.Schema({
     message: {
         type: String
     },
+    chatroom: {
+        type: String
+    },
     createdOn: {
         type: Date, default: Date.now
     }
