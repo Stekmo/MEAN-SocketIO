@@ -16,8 +16,8 @@
 
 <h4>Chatrooms</h4>
 <ul class="chatrooms">
-  <li *ngFor="let chatroom of chatrooms" (click)="changeRoom(chatroom.name)">
-    <a [routerLink]="['/chat', chatroom.name]" routerLinkActive="active">{{chatroom.name}}</a>
+  <li *ngFor="let chatroom of chatrooms">
+    <a [routerLink]="['/chat', chatroom.name]" routerLinkActive="active" (click)="changeRoom(chatroom.name)">{{chatroom.name}}</a>
   </li>
 </ul>
 <hr>

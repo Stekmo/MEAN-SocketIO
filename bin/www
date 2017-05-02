@@ -80,17 +80,12 @@ app.use(function(err, req, res, next) {
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
+/** Create HTTP server. **/
 var server = http.createServer(app);
 var io = socketio(server);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
 
+/** Listen on provided port, on all network interfaces. **/
 server.listen(port);
 server.on('error', onError);
 io.on('connection', function (socket) {
