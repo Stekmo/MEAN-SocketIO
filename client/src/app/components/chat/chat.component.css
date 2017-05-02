@@ -1,0 +1,10 @@
+.frame {
+  position: relative;
+  height: 500px; }
+
+#messageForm {
+  position: absolute;
+  bottom: 30px;
+  width: 200px; }
+
+/*# sourceMappingURL=chat.component.css.map */

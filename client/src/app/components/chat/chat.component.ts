@@ -11,12 +11,15 @@ import { Message } from './message';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+
   name: String;
   message: String;
   room: String;
-  currentRoom: String = '';
+  currentRoom: string = '';
   public chatMessages = [];
   public chatrooms = [];
+  title = "Please enter a room";
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,7 +33,7 @@ export class ChatComponent implements OnInit {
       this.currentRoom = params['currentRoom'];
       console.log(this.currentRoom);
     });
-
+    this.title = this.currentRoom;
     this.getMessages(this.currentRoom);
     this.getChatrooms();
   }
@@ -79,6 +82,7 @@ export class ChatComponent implements OnInit {
     this.chatService.changeRoom(this.currentRoom);
     this.getChatrooms();
     this.getMessages(this.currentRoom);
+    this.title = this.currentRoom;
   }
 
 }

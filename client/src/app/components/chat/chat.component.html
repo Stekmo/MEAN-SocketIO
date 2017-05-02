@@ -1,31 +1,46 @@
-<h2>All messages in database</h2>
-<ul>
-  <li *ngFor="let message of chatMessages">
-    {{message.name}} : "{{message.message}}"
-  </li>
-</ul>
-
-<h2 class="page-header">Chat</h2>
-<form (submit)="sendMsg()">
-  <div class="form-group">
-    <label>Message</label>
-    <input type="text" [(ngModel)]="message" name="message" class="form-control">
+<div class="container">
+  <div class="col-md-2">
+    <h4>Online Users</h4>
   </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
-</form>
+  <div class="col-md-8">
+    <h4>{{title}}</h4>
+    <ul>
+      <li *ngFor="let message of chatMessages">
+        {{message.name}} : {{message.message}}
+      </li>
+    </ul>
 
-<h4>Chatrooms</h4>
-<ul class="chatrooms">
-  <li *ngFor="let chatroom of chatrooms">
-    <a [routerLink]="['/chat', chatroom.name]" routerLinkActive="active" (click)="changeRoom(chatroom.name)">{{chatroom.name}}</a>
-  </li>
-</ul>
-<hr>
-
-<form (submit)="createRoom()">
-  <div class="form-group">
-    <label>Create Room</label>
-    <input type="text" [(ngModel)]="room" name="room" class="form-control">
+    <div class="frame">
+      <form (submit)="sendMsg()" id="messageForm">
+        <div class="form-group">
+          <label>Message</label>
+          <input type="text" [(ngModel)]="message" name="message" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+      </form>
+    </div>
   </div>
-  <input type="submit" class="btn btn-primary" value="Create Room">
-</form>
+
+  <div class="col-md-2">
+    <h4>Chatrooms</h4>
+    <ul class="chatrooms">
+      <li *ngFor="let chatroom of chatrooms">
+        <a [routerLink]="['/chat', chatroom.name]" routerLinkActive="active" (click)="changeRoom(chatroom.name)">{{chatroom.name}}</a>
+      </li>
+    </ul>
+    <hr>
+
+    <form (submit)="createRoom()">
+      <div class="form-group">
+        <label>Create Room</label>
+        <input type="text" [(ngModel)]="room" name="room" class="form-control">
+      </div>
+      <input type="submit" class="btn btn-primary" value="Create Room">
+    </form>
+  </div>
+</div>
+
+
+
+
+
