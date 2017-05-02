@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as io from 'socket.io-client';
-import { Router } from '@angular/router';
-// import { AuthService } from '../../services/auth.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
-import {Chatroom} from "./chatroom";
-import {Message} from "./message";
+import { Chatroom } from "./chatroom";
+import { Message } from "./message";
+
 
 @Component({
   selector: 'app-chat',
@@ -15,21 +14,25 @@ export class ChatComponent implements OnInit {
   name: String;
   message: String;
   room: String;
-  currentRoom: String;
-  private socket;
+  currentRoom: String = '';
   public chatMessages = [];
   public chatrooms = [];
 
   constructor(
-    private router: Router,
-    // private authService: AuthService,
-    private chatService: ChatService
+    private activatedRoute: ActivatedRoute,
+    private chatService: ChatService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.getMessages();
+    // Set the current room
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.currentRoom = params['currentRoom'];
+      console.log(this.currentRoom);
+    });
+
+    this.getMessages(this.currentRoom);
     this.getChatrooms();
-    this.currentRoom = "Room Room";
   }
 
   sendMsg(){
@@ -41,8 +44,8 @@ export class ChatComponent implements OnInit {
     this.chatService.sendMessage(message).subscribe();
   }
 
-  getMessages(){
-    this.chatService.getMessages()
+  getMessages(room){
+    this.chatService.getMessages(room)
       .subscribe(
         messages => {
           this.chatMessages = messages;
@@ -69,7 +72,11 @@ export class ChatComponent implements OnInit {
   }
 
   changeRoom(chatroom){
-    this.currentRoom = chatroom.name;
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.currentRoom = params['currentRoom'];
+    });
+    this.currentRoom = chatroom;
+    this.chatService.changeRoom(chatroom);
   }
 
 }

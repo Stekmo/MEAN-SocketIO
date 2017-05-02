@@ -94,10 +94,25 @@ var io = socketio(server);
 server.listen(port);
 server.on('error', onError);
 io.on('connection', function (socket) {
+
     console.log("New client connected");
     chat.addClient(socket);
-    chat.notifyclients();
     chat.notifyClientsAboutRooms();
+
+    let currentRoom = "Room room";
+    socket.on('send current room', (data) =>{
+        currentRoom = data;
+        console.log("Current room on the server is: " + data);
+        chat.notifyclients(null, currentRoom);
+    });
+
+    socket.on('change room', function(data){
+        currentRoom = data;
+    });
+
+    socket.on('disconnect', function(){
+        console.log('Client disconnected');
+    });
 });
 server.on('listening', onListening);
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import { Message } from "../components/chat/message";
 import * as io from 'socket.io-client';
@@ -11,8 +11,9 @@ export class ChatService {
   constructor(
     private http: Http
   ) { }
-  private socket;
+
   private url = window.location.origin;
+  private socket = io(this.url);
 
   sendMessage(message){
     let headers = new Headers();
@@ -21,10 +22,10 @@ export class ChatService {
       .map(res => res.json());
   }
 
-  getMessages(): Observable<Message[]>{
+  getMessages(room): Observable<Message[]>{
     let observable = new Observable(observer => {
-      console.log("Socket", this.url);
-      this.socket = io(this.url);
+      console.log("Socket: ChatService - getMessages()", this.url);
+      this.socket.emit('send current room', room);
       this.socket.on('refresh messages', (data) => {
         observer.next(data);
       });
@@ -45,8 +46,7 @@ export class ChatService {
 
   getChatrooms():Observable<Chatroom[]>{
     let chatroomsList = new Observable(observer => {
-      console.log("Socket", this.url);
-      this.socket = io(this.url);
+      console.log("Socket: ChatService - getChatrooms()", this.url);
       this.socket.on('refresh chatrooms', (data) => {
         observer.next(data);
       });
@@ -56,6 +56,10 @@ export class ChatService {
       };
     });
     return chatroomsList;
+  }
+
+  changeRoom(newRoom){
+    this.socket.emit('change room', newRoom);
   }
 
 }
