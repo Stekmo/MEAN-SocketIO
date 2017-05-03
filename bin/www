@@ -92,7 +92,11 @@ io.on('connection', function (socket) {
 
     console.log("New client connected");
     chat.addClient(socket);
-    chat.notifyClientsAboutRooms();
+
+    socket.on('connect to chat', () => {
+        chat.notifyClientsAboutRooms();
+    });
+
 
     let currentRoom = "Room room";
     socket.on('send current room', (data) =>{

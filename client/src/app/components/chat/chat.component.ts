@@ -20,7 +20,6 @@ export class ChatComponent implements OnInit {
   public chatrooms = [];
   title = "Please enter a room";
 
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
@@ -30,12 +29,19 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     // Set the current room
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.currentRoom = params['currentRoom'];
-      console.log(this.currentRoom);
+      if(params['currentRoom']){
+        this.currentRoom = params['currentRoom'];
+        this.title = this.currentRoom;
+        console.log('current room is: ', this.currentRoom);
+      }
     });
-    this.title = this.currentRoom;
-    this.getMessages(this.currentRoom);
+    this.connectToChat();
     this.getChatrooms();
+    this.getMessages(this.currentRoom);
+  }
+
+  connectToChat(){
+    this.chatService.connectToChat();
   }
 
   sendMsg() {
@@ -83,6 +89,12 @@ export class ChatComponent implements OnInit {
     this.getChatrooms();
     this.getMessages(this.currentRoom);
     this.title = this.currentRoom;
+  }
+
+  clientIsInRoom(){
+    if(this.currentRoom){
+      return true;
+    }
   }
 
 }

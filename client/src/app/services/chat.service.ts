@@ -43,6 +43,10 @@ export class ChatService {
       .map(res => res.json());
   }
 
+  connectToChat(){
+    this.socket.emit('connect to chat');
+  }
+
   getChatrooms(): Observable<Chatroom[]>{
     const chatroomsList = new Observable(observer => {
       console.log('Socket: ChatService - getChatrooms()', this.url);
